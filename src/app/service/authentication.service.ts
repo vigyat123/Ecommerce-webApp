@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
-export class User{
-  constructor(
-    public status:string,
-     ) {}
-  
-}
+import { Status } from './Status';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +12,7 @@ export class AuthenticationService {
 
   authenticate(username, password) {
     const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
-    return this.httpClient.get<User>('http://localhost:8080/validateLogin',{headers}).pipe(
+    return this.httpClient.get<Status>('http://localhost:8080/validateLogin',{headers}).pipe(
      map(
        userData => {
         sessionStorage.setItem('username',username);
